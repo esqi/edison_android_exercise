@@ -1,7 +1,4 @@
-import com.google.protobuf.gradle.builtins
-import com.google.protobuf.gradle.generateProtoTasks
-import com.google.protobuf.gradle.protobuf
-import com.google.protobuf.gradle.protoc
+import com.google.protobuf.gradle.*
 
 plugins {
     id("com.android.application")
@@ -37,19 +34,20 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.2"
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -59,7 +57,7 @@ android {
 // Setup protobuf configuration, generating lite Java and Kotlin classes
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:22.0"
+        artifact = "com.google.protobuf:protoc:4.26.1"
     }
     generateProtoTasks {
         all().forEach { task ->
@@ -85,6 +83,7 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.datastore:datastore:1.0.0")
     implementation("com.google.dagger:hilt-android:2.44.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     kapt("com.google.dagger:hilt-android-compiler:2.44.2")
     implementation("com.google.protobuf:protobuf-kotlin-lite:3.21.12")
 
@@ -95,6 +94,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
     testImplementation("junit:junit:4.13.2")
+    testImplementation("io.mockk:mockk:1.13.4")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.3.3")
