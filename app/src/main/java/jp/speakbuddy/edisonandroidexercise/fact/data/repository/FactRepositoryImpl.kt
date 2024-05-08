@@ -1,6 +1,6 @@
-package jp.speakbuddy.edisonandroidexercise.data.repository
+package jp.speakbuddy.edisonandroidexercise.fact.data.repository
 
-import jp.speakbuddy.edisonandroidexercise.data.model.Fact
+import jp.speakbuddy.edisonandroidexercise.fact.data.model.Fact
 import javax.inject.Inject
 
 class FactRepositoryImpl @Inject constructor(

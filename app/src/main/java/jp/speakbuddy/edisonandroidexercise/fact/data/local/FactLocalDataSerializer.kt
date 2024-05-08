@@ -1,9 +1,8 @@
-package jp.speakbuddy.edisonandroidexercise.data.local
+package jp.speakbuddy.edisonandroidexercise.fact.data.local
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
-import androidx.datastore.preferences.protobuf.InvalidProtocolBufferException
-import jp.speakbuddy.edisonandroidexercise.data.proto.FactLocalData
+import jp.speakbuddy.edisonandroidexercise.fact.data.proto.FactLocalData
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -12,7 +11,7 @@ object FactLocalDataSerializer : Serializer<FactLocalData> {
 
     override suspend fun readFrom(input: InputStream): FactLocalData = try {
         FactLocalData.parseFrom(input)
-    } catch (exception: InvalidProtocolBufferException) {
+    } catch (exception: Throwable) {
         throw CorruptionException("Cannot read proto.", exception)
     }
 

@@ -1,10 +1,10 @@
-package jp.speakbuddy.edisonandroidexercise.data.local
+package jp.speakbuddy.edisonandroidexercise.fact.data.local
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
-import jp.speakbuddy.edisonandroidexercise.data.model.Fact
-import jp.speakbuddy.edisonandroidexercise.data.proto.copy
-import jp.speakbuddy.edisonandroidexercise.data.repository.FactLocalDataSource
+import jp.speakbuddy.edisonandroidexercise.fact.data.model.Fact
+import jp.speakbuddy.edisonandroidexercise.fact.data.proto.copy
+import jp.speakbuddy.edisonandroidexercise.fact.data.repository.FactLocalDataSource
 import kotlinx.coroutines.flow.firstOrNull
 import javax.inject.Inject
 

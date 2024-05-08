@@ -1,4 +1,4 @@
-package jp.speakbuddy.edisonandroidexercise.data.network
+package jp.speakbuddy.edisonandroidexercise.fact.data.network
 
 import retrofit2.http.GET
 

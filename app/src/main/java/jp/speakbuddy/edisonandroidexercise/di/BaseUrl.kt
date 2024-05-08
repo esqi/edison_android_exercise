@@ -1,4 +1,4 @@
-package jp.speakbuddy.edisonandroidexercise.data.di
+package jp.speakbuddy.edisonandroidexercise.di
 
 import javax.inject.Qualifier
 
