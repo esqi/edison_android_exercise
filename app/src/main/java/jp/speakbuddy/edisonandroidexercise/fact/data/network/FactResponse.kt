@@ -1,6 +1,6 @@
-package jp.speakbuddy.edisonandroidexercise.data.network
+package jp.speakbuddy.edisonandroidexercise.fact.data.network
 
-import jp.speakbuddy.edisonandroidexercise.data.model.Fact
+import jp.speakbuddy.edisonandroidexercise.fact.data.model.Fact
 import kotlinx.serialization.Serializable
 
 @Serializable
