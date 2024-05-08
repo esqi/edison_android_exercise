@@ -7,12 +7,12 @@ class FactRepositoryImpl @Inject constructor(
     private val factNetworkDataSource: FactNetworkDataSource,
     private val factLocalDataSource: FactLocalDataSource,
 ) : FactRepository {
-    override suspend fun getFact(): Fact? = factNetworkDataSource.fetchFact().fold(
-        onSuccess = { fact : Fact ->
-            factLocalDataSource.saveFact(fact)
-            fact
-        },
-    ) {
-        factLocalDataSource.getCachedFact()
-    }
+    override suspend fun getFact(): Result<Fact> =
+        factNetworkDataSource.fetchFact()
+            .onSuccess {
+                factLocalDataSource.saveFact(it)
+            }
+            .recoverCatching { throwable ->
+                factLocalDataSource.getCachedFact() ?: throw throwable
+            }
 }
