@@ -22,13 +22,15 @@ class FactViewModel @Inject constructor(
         MutableStateFlow(FactUiState.Initial)
     val factStateFlow: StateFlow<FactUiState> = _factStateFlow.asStateFlow()
 
-    fun updateFact() {
+    private suspend fun updateFactInternal() {
         _factStateFlow.update { FactUiState.Loading }
-        viewModelScope.launch(Dispatchers.IO) {
-            factRepository.getFact().fold(
-                onSuccess = { fact -> FactUiState.Success(fact) }
-            ) { e -> FactUiState.Error(e) }
-                .also { factUiState -> _factStateFlow.update { factUiState } }
-        }
+        factRepository.getFact().fold(
+            onSuccess = { fact -> FactUiState.Success(fact) }
+        ) { e -> FactUiState.Error(e) }
+            .also { factUiState -> _factStateFlow.update { factUiState } }
+    }
+
+    fun updateFact() = viewModelScope.launch(Dispatchers.IO) {
+        updateFactInternal()
     }
 }
