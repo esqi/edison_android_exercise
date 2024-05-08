@@ -1,10 +1,10 @@
 plugins {
-    id("com.android.application") version "8.5.0-alpha07" apply false
-    id("com.android.library") version "8.5.0-alpha07" apply false
-    id("org.jetbrains.kotlin.android") version "1.8.10" apply false
-    id("com.google.dagger.hilt.android") version "2.44.2" apply false
-    id("com.google.protobuf") version "0.9.4" apply false
-
-    kotlin("jvm") version "1.8.10"
-    kotlin("plugin.serialization") version "1.8.10"
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.jetbrains.kotlin.android) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.protobuf) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.kotlin.jvm) apply false
 }

@@ -1,23 +1,23 @@
 import com.google.protobuf.gradle.*
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.serialization")
-
-    kotlin("kapt")
-    id("com.google.dagger.hilt.android")
-    id("com.google.protobuf")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.protobuf)
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "jp.speakbuddy.edisonandroidexercise"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "jp.speakbuddy.edisonandroidexercise"
         minSdk = 26
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "0.0.1"
 
@@ -29,7 +29,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -43,9 +43,10 @@ android {
     buildFeatures {
         compose = true
         viewBinding = true
+        buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.2"
+        kotlinCompilerExtensionVersion = "1.5.13"
     }
     packaging {
         resources {
@@ -74,34 +75,31 @@ protobuf {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
-    implementation("androidx.activity:activity-compose:1.6.1")
-    implementation("androidx.compose.ui:ui:1.3.3")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.3.3")
-    implementation("androidx.compose.material3:material3:1.0.1")
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("androidx.datastore:datastore:1.0.0")
-    implementation("com.google.dagger:hilt-android:2.44.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.44.2")
-    implementation("com.google.protobuf:protobuf-kotlin-lite:3.21.12")
-
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0-RC")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
-
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("io.mockk:mockk:1.13.4")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.3.3")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.3.3")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.3.3")
-}
-
-kapt {
-    correctErrorTypes = true
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.dataStore.core)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.protobuf.kotlin.lite)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit.kotlin.serialization)
+    implementation(libs.okhttp)
+    implementation(libs.retrofit.core)
+    kspTest(libs.hilt.compiler)
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.hilt.android.testing)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.hilt.android.testing)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }
