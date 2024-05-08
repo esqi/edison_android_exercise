@@ -11,16 +11,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewDynamicColors
+import androidx.compose.ui.tooling.preview.PreviewFontScale
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import jp.speakbuddy.edisonandroidexercise.fact.data.model.Fact
 import jp.speakbuddy.edisonandroidexercise.fact.data.model.containCats
 import jp.speakbuddy.edisonandroidexercise.fact.data.model.isShowLength
-import jp.speakbuddy.edisonandroidexercise.fact.data.repository.FactRepository
 import jp.speakbuddy.edisonandroidexercise.fact.ui.FactUiState
 import jp.speakbuddy.edisonandroidexercise.fact.ui.viewmodel.FactViewModel
 import jp.speakbuddy.edisonandroidexercise.theme.EdisonAndroidExerciseTheme
@@ -28,6 +32,15 @@ import jp.speakbuddy.edisonandroidexercise.theme.EdisonAndroidExerciseTheme
 @Composable
 fun FactScreen(
     factViewModel: FactViewModel = viewModel()
+) {
+    val state by factViewModel.factStateFlow.collectAsState(FactUiState.Initial)
+    FactScreen(factUiState = state, onClick = factViewModel::updateFact)
+}
+
+@Composable
+fun FactScreen(
+    factUiState: FactUiState,
+    onClick : () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -40,8 +53,6 @@ fun FactScreen(
             alignment = Alignment.CenterVertically
         )
     ) {
-        val fact = factViewModel.factStateFlow.collectAsState()
-        val factUiState = fact.value
         Text(
             text = "Fact",
             style = MaterialTheme.typography.titleLarge,
@@ -82,26 +93,42 @@ fun FactScreen(
             }
         }
 
-        val onClick = {
-            factViewModel.updateFact()
-        }
-
         Button(onClick = onClick) {
             Text(text = "Update fact")
         }
     }
 }
 
-@Preview
+@Preview(showSystemUi = true)
+@PreviewScreenSizes
+@PreviewFontScale
+@PreviewLightDark
+@PreviewDynamicColors
 @Composable
 private fun FactScreenPreview() {
     EdisonAndroidExerciseTheme {
         FactScreen(
-            factViewModel = FactViewModel(object : FactRepository {
-                override suspend fun getFact(): Result<Fact> = Result.success(object : Fact {
-                    override val fact: String = "Cat Fact"
-                })
+            factUiState = FactUiState.Success(object : Fact {
+                override val fact: String = "Success Fact about cats"
             })
-        )
+        ) {
+            // do nothing
+        }
+    }
+}
+
+@Preview(showSystemUi = true)
+@PreviewScreenSizes
+@PreviewFontScale
+@PreviewLightDark
+@PreviewDynamicColors
+@Composable
+private fun FactScreenLoadingPreview() {
+    EdisonAndroidExerciseTheme {
+        FactScreen(
+            factUiState = FactUiState.Loading
+        ) {
+            // do nothing
+        }
     }
 }
