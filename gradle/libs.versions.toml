@@ -12,7 +12,6 @@ lifecycleRuntimeKtx = "2.7.0"
 lifecycleViewmodelCompose = "2.7.0"
 activityCompose = "1.9.0"
 composeBom = "2024.05.00"
-googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
 androidxDataStore = "1.1.1"
 mockk = "1.13.4"
 protobuf = "3.25.2"
@@ -52,7 +51,6 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-google-android-libraries-mapsplatform-secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "googleAndroidLibrariesMapsplatformSecretsGradlePlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

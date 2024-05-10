@@ -26,3 +26,8 @@ jobs:
       run: ./gradlew testDebugUnitTest
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Package
+        path: app/build/outputs/apk/debug
