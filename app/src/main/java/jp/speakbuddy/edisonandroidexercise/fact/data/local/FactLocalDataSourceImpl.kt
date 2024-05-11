@@ -25,7 +25,7 @@ class FactLocalDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getCachedFact(): Fact? = runCatching {
-        context.factLocalDataDataStore.data
+        dataStore.data
             .firstOrNull()
             ?.takeUnless { factLocalData -> factLocalData.fact.isNullOrBlank() }
             ?.let { factLocalData -> FactLocal(factLocalData) }

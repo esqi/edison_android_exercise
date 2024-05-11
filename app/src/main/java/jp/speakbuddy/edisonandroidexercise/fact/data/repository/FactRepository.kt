@@ -1,7 +1,8 @@
 package jp.speakbuddy.edisonandroidexercise.fact.data.repository
 
 import jp.speakbuddy.edisonandroidexercise.fact.data.model.Fact
+import kotlinx.coroutines.flow.Flow
 
 interface FactRepository {
-    suspend fun getFact(): Result<Fact>
+    fun getFact(): Flow<Fact>
 }

@@ -1,12 +1,14 @@
-import com.google.protobuf.gradle.*
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.android.junit5)
     alias(libs.plugins.hilt)
     alias(libs.plugins.protobuf)
     alias(libs.plugins.ksp)
+    jacoco
 }
 
 android {
@@ -91,10 +93,12 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.retrofit.core)
     kspTest(libs.hilt.compiler)
+    testImplementation(libs.junit.jupiter)
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.kotlinx.coroutines.test)
+    testRuntimeOnly(libs.junit.jupiter.engine)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -102,4 +106,27 @@ dependencies {
     androidTestImplementation(libs.hilt.android.testing)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+afterEvaluate {
+    tasks {
+        val testDebugUnitTest by existing(Test::class) {
+            testLogging.events =
+                setOf(TestLogEvent.PASSED, TestLogEvent.FAILED, TestLogEvent.SKIPPED)
+            finalizedBy("jacocoTestReport")
+        }
+
+        val jacocoTestDebugUnitTestReport by registering(JacocoReport::class) {
+            dependsOn(testDebugUnitTest)
+            reports {
+                xml.required = false
+                csv.required = true
+                html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+            }
+        }
+    }
 }
