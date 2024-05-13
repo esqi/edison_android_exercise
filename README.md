@@ -1,3 +1,4 @@
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/esqi/edison_android_exercise/android.yml)
 # Before you start
 ### About the tasks and the descriptions
 A description of each task in this challenge is not very specific and strict. To be honest, we don't think we're providing perfect requirements.
