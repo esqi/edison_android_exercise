@@ -17,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
@@ -25,6 +26,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import jp.speakbuddy.edisonandroidexercise.R
 import jp.speakbuddy.edisonandroidexercise.fact.data.model.Fact
 import jp.speakbuddy.edisonandroidexercise.fact.data.model.containCats
 import jp.speakbuddy.edisonandroidexercise.fact.data.model.isShowLength
@@ -46,7 +48,7 @@ fun ErrorBody(
     throwable: Throwable
 ) {
     Text(
-        text = "something went wrong. error = ${throwable.message}",
+        text = stringResource(id = R.string.txt_error, throwable.message.orEmpty()),
         style = MaterialTheme.typography.bodyLarge,
         color = Color.Red,
     )
@@ -58,7 +60,7 @@ fun SuccessBody(
 ) {
     if (fact.containCats) {
         Text(
-            text = "Multiple cats!!",
+            text = stringResource(id = R.string.txt_fact_multiple_cats),
             style = MaterialTheme.typography.titleMedium,
         )
     }
@@ -68,7 +70,7 @@ fun SuccessBody(
     )
     if (fact.isShowLength) {
         Text(
-            text = "Length: ${fact.fact.length}",
+            text = stringResource(id = R.string.txt_fact_length, fact.fact.length),
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Right,
             modifier = Modifier.fillMaxWidth()
@@ -102,7 +104,7 @@ fun FactContent(
         )
     ) {
         Text(
-            text = "Fact",
+            text = stringResource(id = R.string.txt_fact_title),
             style = MaterialTheme.typography.titleLarge,
         )
 
@@ -114,7 +116,7 @@ fun FactContent(
         }
 
         Button(onClick = onClick) {
-            Text(text = "Update fact")
+            Text(text = stringResource(id = R.string.btn_update_fact))
         }
     }
 }
