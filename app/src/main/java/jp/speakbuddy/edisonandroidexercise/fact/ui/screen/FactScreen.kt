@@ -48,7 +48,7 @@ fun ErrorBody(
     throwable: Throwable
 ) {
     Text(
-        text = stringResource(id = R.string.txt_error, throwable.message.orEmpty()),
+        text = stringResource(id = R.string.txt_fact_error, throwable.message.orEmpty()),
         style = MaterialTheme.typography.bodyLarge,
         color = Color.Red,
     )
